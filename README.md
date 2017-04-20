@@ -176,9 +176,50 @@ To calculate the needed pageviews, we choose one sample size (our of the 3 we ha
 Pageviews needed: ....... 39,115/(660/40000) = 2370606 * 2 = 4,741,212
 ```
 
+Given this calculation, we also do not use the `Bonferroni correction` during our analysis phase.
+
+**Note** As we proceed with calculating the duration, there will be a need to come back to this section, iterate over the chosen metric and make some changes. All will be discussed in `Duration vs. Expore` section.
+
 ### Choosing Duration vs. Exposure
 Indicate what fraction of traffic you would divert to this experiment and, given this, how many days you would need to run the experiment. 
 
 Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
+
+The fraction of traffic we would divert to this experiment is 1. Choosing a `Fraction of traffic = 1` and `Pageviews  = 4,741,212`, when we calculate the days needed to run the experiment, we get `duration = 119` days. 
+
+```
+Duration = 4,741,212 / 40000 
+         = 118.5
+```
+This is a very long duration for Udacity to run the experiment and they want this time to be reduced significantly. While running A/B tests, it is important to iterate over the metrics chosen until we can reach to a point where running the experiment is not risky and can also give significant results.
+
+We need to take a look back at our evaluation metrics, gross conversion, retention and net conversion. Let's calculate the needed pageview also for gross and net conversions and see how they might change the duration of our analysis.
+
+```
+Pageviews needed for Gross conversion : ....... 25,835/(3200/40000) = 322937.5 * 2 = 645875
+Duration of experiment choosing Gross:  ....... 645875 / 40000 = 17
+
+Pageviews needed for Net conversion: ....... 27,413/(3200/40000) = 342662.5 * 2 = 685325
+Duration of experiment choosing Net: ....... 685325 / 40000 = 18
+```
+
+Comparing the during of gross and net conversion with retention, shows how much longer it takes to run our experiment if we choose retention as an evaluation metric. Since the length of the experiment is an important factor for Udacity, we need to take another visit to what retention really measures and if it is safe to exclude it from the list of evaluation metrics.
+
+Retention = user-ids to remain enrolled past the 14-day boundary / user-ids to complete checkout
+
+Although retention is a nice metric to have and evaluate in our experiment, we see a low risk of excluding it since evaluations from Gross and Net conversion already cover the goals of the experiment: Reducing number of students who cannot devote enough time to the course and increasing their stay in the course which can hopefully lead to completion. 
+
+Now we are on to have Gross and Net conversion as our two evaluation metrics. Since the sample size of net conversion is higher than gross conversion, we proceeded with choosing net conversion to calculate pageview and duration of the experiment.
+
+```
+Updated pageviews and duration based on Net conversion:
+
+Sample size ..... 27,413
+Pageviews ....... 685325
+Duration ........ 18
+
+```
+
+
 
 

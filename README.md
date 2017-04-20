@@ -40,6 +40,10 @@ Any place `unique cookies` are mentioned, the uniqueness is determined by **day*
 
 ### Invariant vs. Evaluation Metrics
 
+Defining metrics is one of the most crusial steps in an A/B testing process. These metrics are going to reveal whether launching the new experiment is going to work or not; meaning, if asking students about the number of hours they can devote to a course can let them re-think whether they want to enroll in the free trial and actually finish the course.
+
+There are two sets of metrics that we need to choose in our analysis: Invariant and Evaluation metrics.
+
 **Invariant Metrics:** 
 
 After we divide our sample to control and experiment group, we want to make sure that this division has been done correctly i.e. we can asses the changes in our experiment group with more accuracy. To check this, we need to take a look at a few properties (aka. metrics) that check equivalences between the two groups, and which will not have direct implications on the efficacy of the experiment. We call these Invariant metrics. Invariant metrics perform consistent checking across all of our experiments. If the result of such checks are very different, it means that we might not be able to trust our data and need to do it all over again.
@@ -52,8 +56,17 @@ The Invariant metrics that we choose for our Udacity experiment are:
 
 3. Click-through-probability: Since asking for the number of hours a user can devote to a course appears after the user clicks the 'start free trial' button; therefore, this metric remains the same between both groups and does NOT get affected by the experiment.
 
-**Evaluation Metrics** are usually the metrics that are used to perform business decisions with. In the Udacity example, it can be 
-, is usually the business metris, like for example market share, number of users, or user experience metrics. Sometime it measure what previously stated as taking long time because it doesn't contain enough information, like measure user that got a job after taking MOOC. This is a difficult metrics which require special technique, as discussed in next blog.
+**Evaluation Metrics:** 
+
+After defining our invariant metrics, it is time to see what metrics are going to get affected by the new experiment; hence, showing us whether we can launch the new changes or not. Evaluation metrics are used to draw the final business conclusions with. Let's see what can be possible evaluation metrics in our Udacity analysis:
+
+1. Gross conversion: This metric is defined as _number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the "Start free trial" button_ . Users who complete checkout and enroll in the free trial have already seen the 'working hours message' as part of the new experiment; therefore, they affect the Gross coversion.
+
+2. Retention: Since users who enroll and remain in the course for at least 14 days have already seen the message regarding hours they can devote to the course, they are affected by the change. Therefore, retention is another evaluation metric in our study. Since we expect to see that the new changes will filter our those student who cannot spend more than 5 hours/week on the course and keep students who already enroll in the course to finish it, we expect to see rention to go higher if the new changes in our experiment works as we want it.
+
+3. Net conversion: Another evaluation metrics since is contains user who have enrolled in the course and have passed the 14-day trial; thus, they have already seen the message regarding the number of working hours per week.
+
+
 
 
 

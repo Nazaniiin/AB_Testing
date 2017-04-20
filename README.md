@@ -84,7 +84,7 @@ Given a `sample size = 5000` cookies visiting the course overview page, here are
 | Probability of payment, given enroll (Retention)       | 0.53             |
 | Probability of payment, given click (Net)              | 0.1093125        | 
 
-### Calcularing Standard Deviation
+### Calculating Standard Deviation
 
 For each metric we chose as an evaluation metric, we calculate its standard deviation.
 
@@ -132,5 +132,53 @@ Here are the standard deviations for our evaluation metrics:
 | Retention              | 0.0549             |   
 | Net conversion         | 0.0156             |    
 
+## Sizing
+
+### Choosing Number of Samples given Power
+Indicate whether you will use the Bonferroni correction during your analysis phase, and give the number of pageviews you will need to power you experiment appropriately. 
+
+To calculate the sample size that covers the experiment for all of our chosen evaluation metrics, let's first look through the sample sizes we need for _each_ metric. 
+
+We know that the `statistical power` and `significance level` is the same for all metrics:
+
+```
+Statistical power 1−β .............. 80% or 0.2
+Significance level α  .............. 5% or 0.05
+```
+
+To calculate the sample size:
+
+```
+Gross conversion
+----------------
+Baseline conversion rate   .............. 20.625%
+Minimum Detectable Effect  .............. 1%
+
+Sample size: 25,835
+
+Retention
+---------
+Baseline conversion rate   .............. 53%
+Minimum Detectable Effect  .............. 1%
+
+Sample size: 39,115
+
+Net conversion
+--------------
+Baseline conversion rate   .............. 10.93125%
+Minimum Detectable Effect  .............. 0.75%
+
+Sample size: 27,413
+```
+To calculate the needed pageviews, we choose one sample size (our of the 3 we have) which covers all the groups. Since `Retention Sample Size = 39,115` and it already covers sample sizes needed for Gross and Net conversion, we choose it. Now to see how many pageviews we need, we work with `Click-through-probability on "Start free trial" = 0.08` from our baseline and calculate the total number of pageviews per group. Since we have two groups of control and experiment people, we then need to multiply our answer by 2.
+
+```
+Pageviews needed: ....... 39,115/(660/40000) = 2370606 * 2 = 4,741,212
+```
+
+### Choosing Duration vs. Exposure
+Indicate what fraction of traffic you would divert to this experiment and, given this, how many days you would need to run the experiment. 
+
+Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
 
 

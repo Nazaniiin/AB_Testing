@@ -68,11 +68,69 @@ After defining our invariant metrics, it is time to see what metrics are going t
 
 **Unused Metrics:** 
 
-1. **Number of user-ids**: Since this defines the number of users who enroll in the free trial, hence, see the new pop-up message, it could be chosen as an evaluation metric; however, this is just a _number_ that cannot necessarily provide any value on whether the new experiment is an efficient _business_ decision or not. We could use this metric in conjuction with another metric to draw better conclusions. For example, Gross conversion as a metric uses the number of user-ids who enrolled in the free trial (after seeing the pop-up), but the number of cookcies who clicked on 'start a free trial'(before seeing the pop-up). Now this ratio makes more sense in a way that we want to see this Gross conversion decrease to reduce costs for frustrated users. Counting simply the number of user-ids who have enrolled in a course does not provide value for our analysis to conclude any decisions. That is why I left this metric out.
+1. **Number of user-ids**: Since this defines the number of users who enroll in the free trial, hence, see the new pop-up message, it could be chosen as an evaluation metric; however, this is just a _number_ that cannot necessarily provide any value on whether the new experiment is an efficient _business_ decision or not. We could use this metric in conjuction with another metric to draw better conclusions. For example, Gross conversion as a metric uses the number of user-ids who enrolled in the free trial (after seeing the pop-up), by the number of cookcies who clicked on 'start a free trial'(before seeing the pop-up). Now this ratio makes more sense in a way that we want to see this Gross conversion decrease to reduce costs for frustrated users. Counting simply the number of user-ids who have enrolled in a course does not provide value for our analysis to conclude any decisions. That is why I left this metric out.
 
+## Measuring Variability 
 
+Given a `sample size = 5000` cookies visiting the course overview page, here are the baseline values for Udacity. These baseline values are dervied from history and gathered prior to planning and running the experiments; however, they do not represent the actual data on UDacity.
+
+| Baseline                                               | Values           | 
+| -------------------------------------------------------|:----------------:| 
+| Unique cookies to view page per day                    | 40000            | 
+| Unique cookies to click "Start free trial" per day     | 3200             |  
+| Enrollments per day                                    | 660              | 
+| Click-through-probability on "Start free trial"        | 0.08             |
+| Probability of enrolling, given click (Gross)          | 0.20625          | 
+| Probability of payment, given enroll (Retention)       | 0.53             |
+| Probability of payment, given click (Net)              | 0.1093125        | 
 
 ### Calcularing Standard Deviation
+
+For each metric we chose as an evaluation metric, we calculate its standard deviation.
+
+To calculate the standard deviation, let's first see the kind of distribution we have. Since we are calculating SD for our evaluation metrics, all of which are probabilities, we say we have a binomial distribution.
+
+The standard deviation for a binomial distribution is `σ= sqrt((p(p-1))/n)` where:
+- **_p_** is the probability of success on an individual trial
+- **_1-p_** is the probability of failure on an individual trial
+- **_n_** is the number of trials in the binomial experiment
+
+Gross = user-ids to complete checkout and enroll in the free trial / unique cookies to click the "Start free trial" button
+
+To find N, we have to look at what makes somebody eligible to be counted. For gross conversion, that's anybody who clicks on the start free trial button. 
+
+- N = 5000 * 3200/40000 
+- N = 400 
+- P = 0.20625 
+- 1-P = 0.7937 
+
+**SD for Gross = 0.0202**
+
+Retention = user-ids to remain enrolled past the 14-day boundary / user-ids to complete checkout
+
+- N = 5000 * 660/40000
+- N = 82.5
+- P = 0.53
+- 1-P = 0.47
+
+**SD for Retention = 0.0.549**
+
+Net = user-ids to remain enrolled past the 14-day boundary / unique cookies to click the "Start free trial" button
+
+- N = 5000 * 3200/40000
+- N = 400
+- P = 0.53
+- 1-P = 0.47
+
+**SD for Net = 0.0156**
+
+Here are the standard deviations for our evaluation metrics:
+
+| Metrics                | Standard Deviation | 
+| -----------------------|:------------------:| 
+| Gross conversion       | 0.0202             | 
+| Retention              | 0.0549             |   
+| Net conversion         | 0.0156             |    
 
 
 

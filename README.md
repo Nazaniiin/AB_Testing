@@ -50,23 +50,29 @@ After we divide our sample to control and experiment group, we want to make sure
 
 The Invariant metrics that we choose for our Udacity experiment are:
 
-1. Number of cookies: This metric is also the Unit of Diversion in our A/B test. Since this cookie is generated when someone visits the Udacity webpage, and the webpage occurs **before** the experiment, it means that this metric does not get affected by the experiment and can be used as an invariant metric.
+1. **Number of cookies**: This metric is also the Unit of Diversion in our A/B test. Since this cookie is generated when someone visits the Udacity webpage, and the webpage occurs **before** the experiment, it means that this metric does not get affected by the experiment and can be used as an invariant metric.
 
-2. Number of clicks: Since the users click before the free trial screener pops up, this metric is also independent of the experiment, and can be counted as an invariant metric.
+2. **Number of clicks**: Since the users click before the free trial screener pops up, this metric is also independent of the experiment, and can be counted as an invariant metric.
 
-3. Click-through-probability: Since asking for the number of hours a user can devote to a course appears after the user clicks the 'start free trial' button; therefore, this metric remains the same between both groups and does NOT get affected by the experiment.
+3. **Click-through-probability**: Since asking for the number of hours a user can devote to a course appears after the user clicks the 'start free trial' button; therefore, this metric remains the same between both groups and does NOT get affected by the experiment.
 
 **Evaluation Metrics:** 
 
 After defining our invariant metrics, it is time to see what metrics are going to get affected by the new experiment; hence, showing us whether we can launch the new changes or not. Evaluation metrics are used to draw the final business conclusions with. Let's see what can be possible evaluation metrics in our Udacity analysis:
 
-1. Gross conversion: This metric is defined as _number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the "Start free trial" button_ . Users who complete checkout and enroll in the free trial have already seen the 'working hours message' as part of the new experiment; therefore, they affect the Gross coversion.
+1. **Gross conversion**: This metric is defined as _number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the "Start free trial" button_ . Users who complete checkout and enroll in the free trial have already seen the pop-up message as part of the new experiment; therefore, they affect the Gross coversion. This metric shows whether Udacity can lower its costs by showing the new pop-up. After the experiment, we expect Gross conversion to decrease.
 
-2. Retention: Since users who enroll and remain in the course for at least 14 days have already seen the message regarding hours they can devote to the course, they are affected by the change. Therefore, retention is another evaluation metric in our study. Since we expect to see that the new changes will filter our those student who cannot spend more than 5 hours/week on the course and keep students who already enroll in the course to finish it, we expect to see rention to go higher if the new changes in our experiment works as we want it.
+2. **Retention**: Since users who enroll and remain in the course for at least 14 days have already seen the message regarding hours they can devote to the course, they are affected by the change. Therefore, retention is another evaluation metric in our study. Since we expect to see that the new changes will filter out those students who cannot spend more than 5 hours/week on the course and keep students who already enroll in the course to finish it, we expect to see rention to increase if the new changes in our experiment works as we want it.
 
-3. Net conversion: Another evaluation metrics since is contains user who have enrolled in the course and have passed the 14-day trial; thus, they have already seen the message regarding the number of working hours per week.
+3. **Net conversion**: Another evaluation metric since it contains users who have enrolled in the course and have passed the 14-day trial; thus, they have already seen the message regarding the number of working hours per week. This metric shows how the new pop-up message affects the revenue; thus, we expect to see an increase in this metric after the new experiment.
+
+**Unused Metrics:** 
+
+1. **Number of user-ids**: Since this defines the number of users who enroll in the free trial, hence, see the new pop-up message, it could be chosen as an evaluation metric; however, this is just a _number_ that cannot necessarily provide any value on whether the new experiment is an efficient _business_ decision or not. We could use this metric in conjuction with another metric to draw better conclusions. For example, Gross conversion as a metric uses the number of user-ids who enrolled in the free trial (after seeing the pop-up), but the number of cookcies who clicked on 'start a free trial'(before seeing the pop-up). Now this ratio makes more sense in a way that we want to see this Gross conversion decrease to reduce costs for frustrated users. Counting simply the number of user-ids who have enrolled in a course does not provide value for our analysis to conclude any decisions. That is why I left this metric out.
 
 
+
+### Calcularing Standard Deviation
 
 
 

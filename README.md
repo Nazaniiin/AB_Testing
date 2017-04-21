@@ -467,8 +467,28 @@ In this experiment we decided not to use Bonferroni correction. The Bonferroni i
 Based on both `Effect Size Test` and `Sign Test` we could conclude that Gross conversion is statistically significant, while Net conversion is not. Also, during our effect size test we calculated that Gross conversion is also practically significant, while Net conversion is not.
 
 ## Recommendation
-Make a recommendation and briefly describe your reasoning.
+In this experiment, it was important for us to include the results from both of our evaluation metrics into account. This means we wanted to see the number of students who cannot devote 5 hours/week to decrease, and the number of those who enroll in the course and hopefully stay to finish it doesn't change or increase. In statistics terms, this means we did not only want to see statistically significant change in one of them.
 
+Based on the results from Gross conversion, the new changes can lead to a decrease in Gross. This means students who cannot devote enough time to the course, would be filtered out so that the coaches can dedicted more of their time to those students who are more likely to continue the course and finish it. This is good; however, we also wanted to see either no change or an increase in Net conversion. This means, after filtering our students who could not devote enough time, we wanted to see if it brings more revenue to Udacity or just keeps the revenue the same. However, based on the Net conversion results we were not certain whether there is a decrease in Net or not. Since this metric is as important as our Gross conversion, and we are not sure whether we could meet its specifications, I'd recommend **Not to launch** the new changes. Instead, we can start reviewing more metrics and include them in our experiment with a possible cost of longer duration.
 
 # Follow-Up Experiment
 Give a high-level description of the follow up experiment you would run, what your hypothesis would be, what metrics you would want to measure, what your unit of diversion would be, and your reasoning for these choices.
+
+I feel this experiment has done a great job in considering the metrics that could affect Gross and Net. If I want to suggest other experiments, maybe one would be to warn students about the `learning curves` in the course. From personal experience, I found the learning curves to be quite much during a Nanodegree program, and when I first encountered them, I felt that nobody had warned me about it. It made me feel frustrated and question whether I could continue with the course. Only after asking in the forums whether others had run into the same issues, I could get a better feeling that it was not only me. I started to try harder and could manage to finish all the Nanodegree projects. Therefore, I definately recommend a kind of session/seminar/Q&A where students can be informed about these learning curves and can clear things up even more. 
+
+Speaking from another personal experience, one of my favorite parts while doing a course is to get feedback from a reviewer who has reviewed my project. Since the studying is being done online and I do not have that much interaction with the lecturers and course developers, having a reviewer going through my project and making personalized comments about it makes me feel part of the team. It makes the learning experience more "real". Maybe one metric to include in our experiment can be to see the probability of students staying the course, after they have made at least 1 project review (P0) from a Udacity reviewer. 
+
+**Hypothesis**: There will be an increase in Renetention and possible increase in Net Conversion as more students decide to stay in the course
+
+**Metrics:** I would use user-id, rentiontion, attendance, p0_completion and net conversion as a few of my metrics.
+
+**Invariant:** Since user-id stay the same as this experiment only affect students who are already enrolled in the course. The seminar and project review both happens after enrollong and during the 14-day trial period.
+
+**Evaluation:** 
+- Retention: This measures the probability of payment, given a user is enrolled. It can be a great metric to measure since P0_completion is more likely to occure during this period. 
+- P0_Completion: This metric can have an impact on whether students get motivated to stay in the course because of having a nice experience with a reviewer who has reviewed their project 
+- Attendance: This metric is about students attending the seminar/Q&A sessions used to warn them about learning curves of a course. This can directly affect whether students continue to be enrolled in the course or not
+
+Since all our evaluation metrics deal with experiments **AFTER** student enrollment, it might be costly for Udacity to carry them our. For instance, students might not necessarily finish P0 during their 14-day period, or having seminars can be financially expensive and Udacity might need to reasses whether spending the money on this point can benefit them later with possible increase in net conversion.
+
+

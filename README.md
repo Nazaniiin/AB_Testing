@@ -70,7 +70,7 @@ Later while using the evaluation metrics for our analysis, we will make some jus
 
 **Unused Metrics:** 
 
-1. **Number of user-ids**: Since this defines the number of users who enroll in the free trial, hence, see the new pop-up message, it could be chosen as an evaluation metric; however, this is just a _number_ that cannot necessarily provide any value on whether the new experiment is an efficient _business_ decision or not. We could use this metric in conjuction with another metric to draw better conclusions. For example, Gross conversion as a metric uses the number of user-ids who enrolled in the free trial (after seeing the pop-up), by the number of cookcies who clicked on 'start a free trial'(before seeing the pop-up). Now this ratio makes more sense in a way that we want to see this Gross conversion decrease to reduce costs for frustrated users. Counting simply the number of user-ids who have enrolled in a course does not provide value for our analysis to conclude any decisions. That is why I left this metric out.
+1. **Number of user-ids**: Since this defines the number of users who enroll in the free trial, hence, see the new pop-up message, it could be chosen as an evaluation metric; however, this is just a _raw number_ that cannot necessarily provide any value on whether the new experiment is an efficient _business_ decision or not. Also, the way we assign users to control and experiment groups is random, and the data we collect is on daily basis. Considering this, we can see that user-ids do not really get affected here, hence, not a good choice for an evaluation metric. We could use this metric in conjuction with another metric to draw better conclusions. For example, Gross conversion as a metric uses the number of user-ids who enrolled in the free trial (after seeing the pop-up), by the number of cookcies who clicked on 'start a free trial'(before seeing the pop-up). Now this ratio makes more sense in a way that we want to see this Gross conversion decrease to reduce costs for frustrated users. Counting simply the number of user-ids who have enrolled in a course does not provide value for our analysis to conclude any decisions. That is why I left this metric out.
 
 ## Measuring Variability 
 
@@ -196,7 +196,7 @@ Indicate what fraction of traffic you would divert to this experiment and, given
 
 Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
 
-This experience does not affect the existing users enrolled in a course, as they do not see the pop-up message anymore. There are a group of students who are already a member of Udacity and might have started/finished a few courses. Adding the new pop-up message will probably not affect this group either, as they are already used to Udacity's approach and learning process, and might actually appreciate the honesty of Udacity staff. This experiment, however, can affect those who are new to Udacity or have been members but have never taken any courses. There is a chance that they might not appreciate the warning, and find it a bit discouraging although logically speaking, the message shows how Udacity is dedicated to deliver the best results and is not only looking for possible revenue. Based on these judgments, we do not see a high risk in this experiment; however, since the experiment needs to be run for a few weeks and there might be infrastructure problems or bugs that occur during it, we decided to include 80% of our traffic in the experiment. This means out of 40000 views per day, we consider 32000. 
+This experience does not affect the existing users enrolled in a course, as they do not see the pop-up message anymore. There are a group of students who are already a member of Udacity and might have started/finished a few courses. Adding the new pop-up message will probably not affect this group either, as they are already used to Udacity's approach and learning process, and might actually appreciate the honesty of Udacity. This experiment, however, can affect those who are new to Udacity or have been members but have never taken any courses. There is a chance that they might not like the warning, and find it a bit discouraging although logically speaking, the message shows how Udacity is dedicated to deliver the best results and is not only looking for possible revenue. The experiment does not collect any sensitive information either (e.g. credit card no). None of this will cause any harm to a user. Since our risk is very minimal, we can consider 100% of our traffic to be exposed to the change;however, since the experiment needs to be run for a few weeks and there might be infrastructure problems or bugs that occur during it, we decided to include 80% of our traffic in the experiment. This means out of 40000 views per day, we consider 32000. 
 
 
 Choosing a `Fraction of traffic = 0.8` and `Pageviews  = 4,741,212`, when we calculate the days needed to run the experiment, we get `duration = 119` days. 
@@ -467,24 +467,39 @@ In this experiment we decided not to use Bonferroni correction. The Bonferroni i
 Based on both `Effect Size Test` and `Sign Test` we could conclude that Gross conversion is statistically significant, while Net conversion is not. Also, during our effect size test we calculated that Gross conversion is also practically significant, while Net conversion is not.
 
 ## Recommendation
-In this experiment, it was important for us to include the results from both of our evaluation metrics into account. This means we wanted to see the number of students who cannot devote 5 hours/week to decrease, and the number of those who enroll in the course and hopefully stay to finish it doesn't change or increase. In statistics terms, this means we did not only want to see statistically significant change in one of them.
+In this experiment, it was important for us to include the results from both of our evaluation metrics into account. This means we wanted to see the number of students who cannot devote 5 hours/week to decrease, and the number of those who enroll in the course and hopefully stay to finish it doesn't change or increase. In statistics terms, this means we did not only want to see statistically significant change in one of them, but in both.
 
-Based on the results from Gross conversion, the new changes can lead to a decrease in Gross. This means students who cannot devote enough time to the course, would be filtered out so that the coaches can dedicted more of their time to those students who are more likely to continue the course and finish it. This is good; however, we also wanted to see either no change or an increase in Net conversion. This means, after filtering our students who could not devote enough time, we wanted to see if it brings more revenue to Udacity or just keeps the revenue the same. However, based on the Net conversion results we were not certain whether there is a decrease in Net or not. Since this metric is as important as our Gross conversion, and we are not sure whether we could meet its specifications, I'd recommend **Not to launch** the new changes. Instead, we can start reviewing more metrics and include them in our experiment with a possible cost of longer duration.
+Based on the results from Gross conversion, the new changes can lead to a decrease in Gross. This means students who cannot devote enough time to the course, would be filtered out so that the coaches can dedicte more of their time to those students who are more likely to continue the course and finish it. This is good; however, we also wanted to see either no change or an increase in Net conversion. This means, after filtering our students who could not devote enough time, we wanted to see if it brings more revenue to Udacity or just keeps the revenue the same. Since the confidence interval of Net conversion does include the negative of the practical significance boundary(dmin), launching this experiment might cause a decrease in revenue. This is definately something we don't want to see as a result of our experiment. I'd recommend **Not to launch** the new changes, and instead run tests to figure out whether net conversion really decreases or not.
 
 # Follow-Up Experiment
-Give a high-level description of the follow up experiment you would run, what your hypothesis would be, what metrics you would want to measure, what your unit of diversion would be, and your reasoning for these choices.
+In this section we give a high-level description of the follow up experiment we would run, what our hypothesis would be, what metrics we would want to measure, what our unit of diversion would be, and the reasoning for these choices.
 
-I feel this experiment has done a great job in considering the metrics that could affect Gross and Net. If I want to suggest other experiments, maybe one would be to warn students about the `learning curves` in the course. From personal experience, I found the learning curves to be quite much during a Nanodegree program, and when I first encountered them, I felt that nobody had warned me about it. It made me feel frustrated and question whether I could continue with the course. Only after asking in the forums whether others had run into the same issues, I could get a better feeling that it was not only me. I started to try harder and could manage to finish all the Nanodegree projects. Therefore, I definately recommend a kind of session/seminar/Q&A where students can be informed about these learning curves and can clear things up even more. 
+I feel this experiment has done a great job in considering the metrics that could affect Gross and Net. If I want to suggest other experiments, maybe one would be to warn students about the `learning curves` in the course. From personal experience, I found the learning curves to be quite much during a Nanodegree program, and when I first encountered them, I felt that nobody had warned me about it. It made me feel frustrated and question whether I could continue with the course. Only after asking in the forums whether others had run into the same issues, I could get a better feeling that it was not only me. I started to try harder and could manage to finish all the Nanodegree projects. Therefore, I definately recommend a seminar or Q&A session where students can be informed about these learning curves and can clear things up even more. 
 
 Speaking from another personal experience, one of my favorite parts while doing a course is to get feedback from a reviewer who has reviewed my project. Since the studying is being done online and I do not have that much interaction with the lecturers and course developers, having a reviewer going through my project and making personalized comments about it makes me feel part of the team. It makes the learning experience more "real". Maybe one metric to include in our experiment can be to see the probability of students staying the course, after they have made at least 1 project review (P0) from a Udacity reviewer. 
 
-**Hypothesis**: There will be an increase in Renetention and possible increase in Net Conversion as more students decide to stay in the course
+**Hypothesis**: There will be an increase in Renetention as more students decide to stay in the course
 
-**Metrics:** I would use user-id, rentiontion, attendance, p0_completion and net conversion as a few of my metrics.
+**Unit of Diversion**
 
-**Invariant:** Since user-id stay the same as this experiment only affect students who are already enrolled in the course. The seminar and project review both happens after enrollong and during the 14-day trial period.
+I would choose `user-id` as the unit of diversion since the change only affects those who are already enrolled in a course.
 
-**Evaluation:** 
+**Metrics** 
+
+List of all metrics:
+- user-id
+- Retention
+- Attendance (for seminars)
+- P0_completion
+
+**Invariant** 
+
+I choose `user-id` as my invariant metric since it stays the same as this experiment only affect students who are already enrolled in the course. The seminar and project review both happen after enrolling.
+
+**Evaluation**  
+
+I would choose the below metrics for evaluation:
+
 - Retention: This measures the probability of payment, given a user is enrolled. It can be a great metric to measure since P0_completion is more likely to occure during this period. 
 - P0_Completion: This metric can have an impact on whether students get motivated to stay in the course because of having a nice experience with a reviewer who has reviewed their project 
 - Attendance: This metric is about students attending the seminar/Q&A sessions used to warn them about learning curves of a course. This can directly affect whether students continue to be enrolled in the course or not

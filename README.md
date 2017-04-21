@@ -62,9 +62,11 @@ After defining our invariant metrics, it is time to see what metrics are going t
 
 1. **Gross conversion**: This metric is defined as _number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the "Start free trial" button_ . Users who complete checkout and enroll in the free trial have already seen the pop-up message as part of the new experiment; therefore, they affect the Gross coversion. This metric shows whether Udacity can lower its costs by showing the new pop-up. After the experiment, we expect Gross conversion to decrease.
 
-2. **Retention**: Since users who enroll and remain in the course for at least 14 days have already seen the message regarding hours they can devote to the course, they are affected by the change. Therefore, retention is another evaluation metric in our study. Since we expect to see that the new changes will filter out those students who cannot spend more than 5 hours/week on the course and keep students who already enroll in the course to finish it, we expect to see rention to increase if the new changes in our experiment works as we want it.
+2. **Retention**: Since users who enroll and remain in the course for at least 14 days have already seen the message regarding hours they can devote to the course, they are affected by the change. Therefore, retention is another evaluation metric in our study. Since we expect to see that the new changes will filter out those students who cannot spend more than 5 hours/week on the course and keep students who already enroll in the course to finish it, we expect to see rention to increase if the new changes in our experiment works as we want it. 
 
 3. **Net conversion**: Another evaluation metric since it contains users who have enrolled in the course and have passed the 14-day trial; thus, they have already seen the message regarding the number of working hours per week. This metric shows how the new pop-up message affects the revenue; thus, we expect to see an increase in this metric after the new experiment.
+
+Later while using the evaluation metrics for our analysis, we will make some justifications to this list. However, we wanted to keep this list to what we originally chose for our evaluation metrics. In the `Duration vs. Expore` section, we go into depth of what evaluation metrics we finally decide to choose for the experiment and why.
 
 **Unused Metrics:** 
 
@@ -132,6 +134,15 @@ Here are the standard deviations for our evaluation metrics:
 | Retention              | 0.0549             |   
 | Net conversion         | 0.0156             |    
 
+
+**Evaluating statistical and practical significance**
+
+Now that we have calculated the standard deviation for our evaluation metrics (i.e. the analytical variability), we would like to also see how different they can be later when we run the actual study. Ideally, we do not like to see a big difference between statistical and practical significance.
+
+Since the demoniators of Gross and Net conversion are the same as the unit of diversion (i.e. cookie), it is safe to say that the analytical variability will be similar to the empirical variability, but we will later calculate emperical variability and see how they differ.
+
+Retention is an evaluation metric that has a different denominator `user-ides to complete checkout` than the unit of conversion (i.e. cookies), it might result in a significant difference between analytical variability and emperical variability for this metric. We will also dive more into this later. 
+
 ## Sizing
 
 ### Choosing Number of Samples given Power
@@ -185,7 +196,7 @@ Indicate what fraction of traffic you would divert to this experiment and, given
 
 Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
 
-The fraction of traffic we would divert to this experiment is 1. Choosing a `Fraction of traffic = 1` and `Pageviews  = 4,741,212`, when we calculate the days needed to run the experiment, we get `duration = 119` days. 
+The fraction of traffic we would divert to this experiment is 1. We would choose a lower value in case exposing 100% of traffic to the experiment would be of high risk. Since nothing regarding potential risks has been mentioned in the definition of the project, we continue with 100% of our traffic. Choosing a `Fraction of traffic = 1` and `Pageviews  = 4,741,212`, when we calculate the days needed to run the experiment, we get `duration = 119` days. 
 
 ```
 Duration = 4,741,212 / 40000 
@@ -212,14 +223,106 @@ Although retention is a nice metric to have and evaluate in our experiment, we s
 Now we are on to have Gross and Net conversion as our two evaluation metrics. Since the sample size of net conversion is higher than gross conversion, we proceeded with choosing net conversion to calculate pageview and duration of the experiment.
 
 ```
-Updated pageviews and duration based on Net conversion:
+Final Evaluation Metrics Chosen:
+Gross conversion
+Net conversion
 
+Pageviews and Duration based on Net conversion:
 Sample size ..... 27,413
 Pageviews ....... 685325
 Duration ........ 18
 
 ```
 
+# Experiment Analysis
+Now that we have defined invariant and evaluation metrics and calculated the duration of our experiment, it is time to see what we can conclude from the data that we have using these metrics. However, we need to run some sanity checks to make sure that our design was done properly.
 
+For each of our invariant metrics, we give the 95% confidence interval for the value we expect to observe, the actual observed value, and whether the metric passes our sanity check.
+
+## Sanity Checks
+
+```
+Confidence Interval
+-------------------
+95% -> z-score = 1.96
+
+Number of cookies
+-----------------
+Total number of pageviews (control) .......... 345543
+Total number of pageviews (experiment) ....... 344660
+Total number of pageviews .................... 690203
+Probability of success ....................... 0.5
+
+Standard Error = Sqrt(P(1-P) / ([Pageviews Cont] + [Pageview Exp]) ) 
+               = Sqrt( (0.5 * 0.5) / 690203)
+               = 0.0006
+Margin of Error = 1.96 * Standard Error
+                = 1.96 * 0.0006
+                = 0.00117
+Lower CI Bound = 0.5 - [Margin of Error]
+               = 0.5 - 0.00117
+               = 0.49883 -> 0.4988
+Upper CI Bound = 0.5 + [Margin of Error]
+               = 0.5 + 0.00117
+               = 0.50117 -> 0.0512
+               
+Observed = [Pageviews Cont] / ([Pageviews Cont] + [Pageviews Exp])
+         = 345543 / 690203
+         = 0.5006
+
+Number of clicks
+----------------
+Total number of clicks (control) ............. 28378
+Total number of clicks (experiment) .......... 28325
+Total number of clicks ....................... 56703
+Probability of success ....................... 0.5
+
+Standard Error = Sqrt(P(1-P) / ([Clicks Cont] + [Clicks Exp]) ) 
+               = Sqrt( (0.5 * 0.5) / 56703)
+               = 0.00209
+Margin of Error = 1.96 * Standard Error
+                = 1.96 * 0.00209
+                = 0.00409
+Lower CI Bound = 0.5 - [Margin of Error]
+               = 0.5 - 0.00409
+               = 0.49591 -> 0.4959
+Upper CI Bound = 0.5 + [Margin of Error]
+               = 0.5 + 0.00409
+               = 0.50409 -> 0.5040
+               
+Observed = [Clicks Cont] / ([Clicks Cont] + [Clicks Exp])
+         = 28378 / 56703
+         = 0.5004
+
+Click probability
+-------------------
+CTR (control) .................... 0.0821258
+CTR (experiment) ................. 0.0821824
+CTR (pool) = [Clicks Cont + Clicks Exp] / [Pageviews Cont + Pageviews Exp]
+           = 56703 / 690203
+           = 0.082154        
+SE (pool) = Sqrt(CTR_pool * (1 - CTR_pool) * (1/Pageviews Cont + 1/Pageviews Exp))
+          = Sqrt( 0.082154 * 0.917846 * (0.00000289 + 0.0000029)
+          = Sqrt(0.082154 * 0.917846 * 0.00000579
+          = 0.00066
+Margin of Error = 1.96 * Standard Error
+                = 1.96 * 0.00066 
+                = 0.00129
+                
+Difference = CTR_exp - CTR_cont
+
+Under null hypothesis the difference equals zero. Then we would expect our estimation on the difference to be distributed normally with a mean of zero and standard deviation of SE_pool.
+
+Lower CI Bound = 0 - [Margin of Error]
+               = - 0.00129 -> -0.0013
+
+Upper CI Bound = 0 + [Margin of Error]
+               = 0.00129 -> 0.0013
+               
+Difference (observed) = CTR_exp - CTR_cont
+                      = 0.08218 - 0.082125
+                      = 0.00006 -> 0.0001
+
+```
 
 

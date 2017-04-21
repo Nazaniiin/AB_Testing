@@ -328,26 +328,107 @@ Difference (observed) = CTR_exp - CTR_cont
 
 Let's take another look at our confidence intervals and the observed values:
 
-```
-Number of cookies:
-    Confidence interval ............ [0.4988, 0.5012]
-    Observed value ................. 0.5006
-    Pass/Fail ...................... Pass
+| Invariant Metric          | Confidence Interval | Observed Difference| Pass/Fail|
+|---------------------------|:-------------------:|:------------------:|----------|
+| Number of cookies         | [0.4988, 0.5012]    | 0.5006             | Pass     |
+| Number of clicks          | [0.4959, 0.5040]    | 0.5004             | Pass     |
+| Click-through-probability | [-0.0013, 0.0013]   | 0.0001             | Pass     |
 
-Number of clicks:
-    Confidence interval............. [0.4959, 0.5040]
-    Observed value.................. 0.5004
-    Pass/Fail ...................... Pass
-
-Click-through-probability:
-    Confidence interval (of diff.).. [-0.0013, 0.0013]
-    Observed difference............. 0.0001
-    Pass/Fail ...................... Pass
-```
 Since all of the sanity checks for our invariant metrics have passed, it is safe to say that we can continue to do the experiment.
 
 # Result Analysis
 ## Effect Size Tests
+For each of our evaluation metrics, we give a 95% confidence interval around the difference between the experiment and control groups. We then indicate whether each evaluation metric is **statistically** and **practically** significant.
+
+```       
+Gross Conversion with Enrollment
+--------------------------------
+Total clicks (control) ................... 17293
+Total clicks (experiment) ................ 17260
+Total enrollments (control) .............. 3785
+Total enrollments (experiment) ........... 3423
+
+G probability (control) = Enrollment Cont / Clicks Cont
+                        = 3785 / 17293
+                        = 0.21887
+
+G probability (experiment) = Enrollment Exp / Clicks Exp
+                           = 3423/ 17260
+                           = 0.19831
+
+Gross probability (pool) = [Enrollment Cont + Enrollment Exp] / [Clicks Cont + Clicks Exp]
+                         = (3785 + 3423) / (17293 + 17260)
+                         = 7208 / 34553
+                         = 0.2086
+SE (pool) = Sqrt(G_probability_pool * (1 - G_probability_pool) * (1/Clicks Cont + 1/Clicks Exp))
+          = Sqrt(0.2086 * 0.79139 * (0.0000578 + 0.0000579)
+          = 0.00437 
+Margin of Error = 1.96 * SE (pool)
+                = 1.96 * 0.00437
+                = 0.00856
+                
+Difference (Gross) = G_Probability_Exp - G_Probability_Cont
+                   = 0.19831 - 0.21887
+                   = - 0.02056
+                   
+Lower CI Bound = Difference - [Margin of Error]
+               = - 0.02056 - 0.00856
+               = - 0.02912 -> - 0.0291
+
+Upper CI Bound = Difference + [Margin of Error]
+               = - 0.02056 + 0.00856
+               = -0.0120
+
+Net Conversion with Payment
+---------------------------
+Total clicks (control) ................... 17293
+Total clicks (experiment) ................ 17260
+Total payments (control) ................ 2033
+Total payments (experiment) ............. 1945
+
+N probability (control) = Payment Cont / Clicks Cont
+                        = 2033 / 17293
+                        = 0.11756
+
+N probability (experiment) = Payment Exp / Clicks Exp
+                           = 1945/ 17260
+                           = 0.11268
+
+Net probability (pool) = [Payment Cont + Payment Exp] / [Clicks Cont + Clicks Exp]
+                         = (2033 + 1945) / (17293 + 17260)
+                         = 3978 / 34553
+                         = 0.1151
+SE (pool) = Sqrt(N_probability_pool * (1 - N_probability_pool) * (1/Clicks Cont + 1/Clicks Exp))
+          = Sqrt(0.1151 * 0.8849 * ( 0.0000578 + 0.0000579 )
+          = 0.00343
+Margin of Error = 1.96 * SE (pool)
+                = 1.96 * 0.00343
+                = 0.00672 
+                
+Difference (Net) = N_Probability_Exp - N_Probability_Cont
+                   = 0.11268 - 0.11756
+                   = - 0.00488
+                   
+Lower CI Bound = Difference - [Margin of Error]
+               = - 0.00488 - 0.00672 
+               = - 0.0116 
+
+Upper CI Bound = Difference + [Margin of Error]
+               = - 0.00488 + 0.00672 
+               = 0.00184 -> 0.0018
+
+```
+Let's put the result of our confidence interval and practical significance boundry in a table and start the comparison:
+
+| Evaluation Metric          | Confidence Interval   | Practical Significance Boundry| Statistically/Practically|
+|----------------------------|:---------------------:|:-----------------------------:|--------------------------|
+| Gross conversion           | [-0.0291, -0.0120]    | dmin = 0.01                   | YES/YES                  |
+| Net conversion             | [-0.0116, 0.0018]     | dmin = 0.0075                 | NO/NO                    |
+
+For Gross conversion, we were looking for a statistically and practically significant decrease, and based on our calculations, we have it. Zero is NOT a part of the confidence interval, and the upper bound of our confidence interval is past the practical significance boundry. 
+
+On the other hand, the results from Net conversion are not as we expected it. We wanted our experiment to NOT have a significant decrease. We wanted it to either stay the same (i.e. no statistically significant difference), or to have an increase. Zero is part of our confidence interval for Net conversion; thus, it is not statistically significant which is okay. However, CI does not contain the practical significance boundry; therefore, it is not practically significant either.
+
 ## Sign Tests
 ## Summary
 

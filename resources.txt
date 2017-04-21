@@ -1,0 +1,16 @@
+https://discussions.udacity.com/t/project-confusion-regarding-unit-of-diversion/206784/2
+https://discussions.udacity.com/t/unit-of-diversion/179147
+https://discussions.udacity.com/t/what-exactly-are-units-of-diversion-and-invariant-metrics/161779
+https://discussions.udacity.com/t/final-project-hypothesis/37176
+https://discussions.udacity.com/t/good-invariant-or-evaluation-metrics-number-of-cookies-number-of-clicks-and-number-of-user-ids/166758/12
+https://discussions.udacity.com/t/getting-and-using-baseline-values/41858
+http://stattrek.com/probability-distributions/binomial.aspx
+https://discussions.udacity.com/t/calculating-standard-deviation-what-are-these-metrics-in-our-analysis/241642/2
+https://github.com/nehal96/A-B-Testing-Udacity
+https://vwo.com/blog/how-to-calculate-ab-test-sample-size/
+https://en.wikipedia.org/wiki/Bonferroni_correction
+https://discussions.udacity.com/t/final-project-choosing-duration-and-exposure/26647
+https://discussions.udacity.com/t/final-project-choosing-duration-and-exposure/44049
+https://discussions.udacity.com/t/final-lesson-duration-and-exposure-no-idea-how-to-progress/163802/3
+https://discussions.udacity.com/t/sanity-checks-confidence-intervals-observed-values/27175/50
+https://discussions.udacity.com/t/regarding-practical-and-statistical-significance/200857/2

@@ -324,5 +324,31 @@ Difference (observed) = CTR_exp - CTR_cont
                       = 0.00006 -> 0.0001
 
 ```
+### Can we pass the sanity check and continue with our experiment?
+
+Let's take another look at our confidence intervals and the observed values:
+
+```
+Number of cookies:
+    Confidence interval ............ [0.4988, 0.5012]
+    Observed value ................. 0.5006
+    Pass/Fail ...................... Pass
+
+Number of clicks:
+    Confidence interval............. [0.4959, 0.5040]
+    Observed value.................. 0.5004
+    Pass/Fail ...................... Pass
+
+Click-through-probability:
+    Confidence interval (of diff.).. [-0.0013, 0.0013]
+    Observed difference............. 0.0001
+    Pass/Fail ...................... Pass
+```
+Since all of the sanity checks for our invariant metrics have passed, it is safe to say that we can continue to do the experiment.
+
+# Result Analysis
+## Effect Size Tests
+## Sign Tests
+## Summary
 
 

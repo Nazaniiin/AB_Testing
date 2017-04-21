@@ -501,7 +501,6 @@ I choose `user-id` as my invariant metric since it stays the same as this experi
 I would choose the below metrics for evaluation:
 
 - Retention: This measures the probability of payment, given a user is enrolled. It can be a great metric to measure since P0_completion is more likely to occure during this period. 
-- P0_Completion: This metric can have an impact on whether students get motivated to stay in the course because of having a nice experience with a reviewer who has reviewed their project 
 - Attendance: This metric is about students attending the seminar/Q&A sessions used to warn them about learning curves of a course. This can directly affect whether students continue to be enrolled in the course or not
 
 Since all our evaluation metrics deal with experiments **AFTER** student enrollment, it might be costly for Udacity to carry them our. For instance, students might not necessarily finish P0 during their 14-day period, or having seminars can be financially expensive and Udacity might need to reasses whether spending the money on this point can benefit them later with possible increase in net conversion.

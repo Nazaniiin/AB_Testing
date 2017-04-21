@@ -64,7 +64,7 @@ After defining our invariant metrics, it is time to see what metrics are going t
 
 2. **Retention**: Since users who enroll and remain in the course for at least 14 days have already seen the message regarding hours they can devote to the course, they are affected by the change. Therefore, retention is another evaluation metric in our study. Since we expect to see that the new changes will filter out those students who cannot spend more than 5 hours/week on the course and keep students who already enroll in the course to finish it, we expect to see rention to increase if the new changes in our experiment works as we want it. 
 
-3. **Net conversion**: Another evaluation metric since it contains users who have enrolled in the course and have passed the 14-day trial; thus, they have already seen the message regarding the number of working hours per week. This metric shows how the new pop-up message affects the revenue; thus, we expect to see an increase in this metric after the new experiment.
+3. **Net conversion**: Another evaluation metric since it contains users who have enrolled in the course and have passed the 14-day trial; thus, they have already seen the message regarding the number of working hours per week. This metric shows how the new pop-up message affects the revenue; thus, we expect to see no change or an increase in this metric after the new experiment.
 
 Later while using the evaluation metrics for our analysis, we will make some justifications to this list. However, we wanted to keep this list to what we originally chose for our evaluation metrics. In the `Duration vs. Expore` section, we go into depth of what evaluation metrics we finally decide to choose for the experiment and why.
 
@@ -196,11 +196,14 @@ Indicate what fraction of traffic you would divert to this experiment and, given
 
 Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
 
-The fraction of traffic we would divert to this experiment is 1. We would choose a lower value in case exposing 100% of traffic to the experiment would be of high risk. Since nothing regarding potential risks has been mentioned in the definition of the project, we continue with 100% of our traffic. Choosing a `Fraction of traffic = 1` and `Pageviews  = 4,741,212`, when we calculate the days needed to run the experiment, we get `duration = 119` days. 
+This experience does not affect the existing users enrolled in a course, as they do not see the pop-up message anymore. There are a group of students who are already a member of Udacity and might have started/finished a few courses. Adding the new pop-up message will probably not affect this group either, as they are already used to Udacity's approach and learning process, and might actually appreciate the honesty of Udacity staff. This experiment, however, can affect those who are new to Udacity or have been members but have never taken any courses. There is a chance that they might not appreciate the warning, and find it a bit discouraging although logically speaking, the message shows how Udacity is dedicated to deliver the best results and is not only looking for possible revenue. Based on these judgments, we do not see a high risk in this experiment; however, since the experiment needs to be run for a few weeks and there might be infrastructure problems or bugs that occur during it, we decided to include 80% of our traffic in the experiment. This means out of 40000 views per day, we consider 32000. 
+
+
+Choosing a `Fraction of traffic = 0.8` and `Pageviews  = 4,741,212`, when we calculate the days needed to run the experiment, we get `duration = 119` days. 
 
 ```
-Duration = 4,741,212 / 40000 
-         = 118.5
+Duration = 4,741,212 / 32000 
+         = 149
 ```
 This is a very long duration for Udacity to run the experiment and they want this time to be reduced significantly. While running A/B tests, it is important to iterate over the metrics chosen until we can reach to a point where running the experiment is not risky and can also give significant results.
 
@@ -208,10 +211,11 @@ We need to take a look back at our evaluation metrics, gross conversion, retenti
 
 ```
 Pageviews needed for Gross conversion : ....... 25,835/(3200/40000) = 322937.5 * 2 = 645875
-Duration of experiment choosing Gross:  ....... 645875 / 40000 = 17
+Duration of experiment choosing Gross:  ....... 645875 / 32000 = 21
+
 
 Pageviews needed for Net conversion: ....... 27,413/(3200/40000) = 342662.5 * 2 = 685325
-Duration of experiment choosing Net: ....... 685325 / 40000 = 18
+Duration of experiment choosing Net: ....... 685325 / 32000  = 22
 ```
 
 Comparing the during of gross and net conversion with retention, shows how much longer it takes to run our experiment if we choose retention as an evaluation metric. Since the length of the experiment is an important factor for Udacity, we need to take another visit to what retention really measures and if it is safe to exclude it from the list of evaluation metrics.
@@ -230,8 +234,7 @@ Net conversion
 Pageviews and Duration based on Net conversion:
 Sample size ..... 27,413
 Pageviews ....... 685325
-Duration ........ 18
-
+Duration ........ 22
 ```
 
 # Experiment Analysis
@@ -430,6 +433,42 @@ For Gross conversion, we were looking for a statistically and practically signif
 On the other hand, the results from Net conversion are not as we expected it. We wanted our experiment to NOT have a significant decrease. We wanted it to either stay the same (i.e. no statistically significant difference), or to have an increase. Zero is part of our confidence interval for Net conversion; thus, it is not statistically significant which is okay. However, CI does not contain the practical significance boundry; therefore, it is not practically significant either.
 
 ## Sign Tests
+For each of our evaluation metrics, we do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant.
+
+To calculate the p-value, we use a two-tailed test since our null hypothesis says there won't be any change among the controlled and experiment group, while our alternative hypothesis says there is a change between these two groups.
+
+To calculate P-value we need to know the number of our success. We define the number of success as follows:
+
+If the difference between Gross/Net conversion in Experiment group is higher than the Control group, we count this trial as a success, otherwise, it is a failure.
+
+```
+Gross Conversion:
+Number of successes.............  4
+Number of trials................ 23
+Probability..................... 0.5
+Two-tailed p-value.............. 0.0026
+
+Statistically significant?...... YES
+
+Net Conversion:
+Number of successes............. 10
+Number of trials................ 23
+Probability..................... 0.5
+Two-tailed p-value.............. 0.6776
+
+Statistically significant?...... NO
+```
+
 ## Summary
+Here we state whether we used the Bonferroni correction, and explain why or why not. If there were any discrepancies between the effect size hypothesis tests and the sign tests, we describe the discrepancy and why we think it arose.
+
+In this experiment we decided not to use Bonferroni correction. The Bonferroni is used to reduce the chances of having false-positives, meaning it is unlikely for us to see false-positives in the experiment by chance. In our experiment, we are already covering this by wanting both Gross AND NEt conversions to be statistically significant. This also reduces the chance of having false-positive in our results. Therefore, we did not see the need to use Bonferroni correction as well.
+
+Based on both `Effect Size Test` and `Sign Test` we could conclude that Gross conversion is statistically significant, while Net conversion is not. Also, during our effect size test we calculated that Gross conversion is also practically significant, while Net conversion is not.
+
+## Recommendation
+Make a recommendation and briefly describe your reasoning.
 
 
+# Follow-Up Experiment
+Give a high-level description of the follow up experiment you would run, what your hypothesis would be, what metrics you would want to measure, what your unit of diversion would be, and your reasoning for these choices.
